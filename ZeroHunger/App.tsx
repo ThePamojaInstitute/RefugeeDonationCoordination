@@ -15,7 +15,7 @@ import { useTranslation } from "react-i18next";
 import { navigationRef } from './RootNavigation';
 
 
-SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync(); 
 
 const queryClient = new QueryClient();
 const Stack = createNativeStackNavigator();
