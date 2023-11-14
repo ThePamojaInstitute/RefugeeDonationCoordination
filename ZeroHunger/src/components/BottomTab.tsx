@@ -28,6 +28,7 @@ import { NotificationContext } from "../context/ChatNotificationContext";
 import PermissionsScreen from "../screens/PermissionsScreen";
 import GuidelinesScreen from "../screens/GuidelinesScreen";
 import PermissionsScreen2 from "../screens/PermissionsScreen2";
+import SearchScreen from "../screens/SearchScreen";
 import { HomeCustomHeaderRight } from "./headers/HomeCustomHeaderRight";
 import { HomeWebCustomHeader } from "./headers/HomeWebCustomHeader";
 import { ChatCustomHeader } from "./headers/ChatCustomHeader";
@@ -521,6 +522,19 @@ const HomeStackNavigator = ({ navigation }) => {
                     },
                 }}
             />
+            <Stack.Screen
+                name="SearchScreen"
+                component={SearchScreen}
+                options={{
+                    headerShown: true,
+                    headerShadowVisible: false,
+                    title: ("Search"),
+                    headerTitleAlign: 'center',
+                    headerStyle: {
+                        backgroundColor: Colors.offWhite,
+                    },
+                }}
+            />
         </Stack.Navigator >
     )
 }
@@ -766,7 +780,7 @@ const BottomTab = () => {
                                                 <Text
                                                     testID="Bottom.postNavModalReqLabel"
                                                     style={[globalStyles.secondaryBtnLabel]}
-                                                > A Request for Food </Text>
+                                                >Request</Text>
                                             </TouchableOpacity>
                                             <TouchableOpacity
                                                 style={[globalStyles.secondaryBtn, { marginTop: 16, marginBottom: 30 }]}
@@ -779,7 +793,7 @@ const BottomTab = () => {
                                                 <Text
                                                     testID="Bottom.postNavModalOffLabel"
                                                     style={[globalStyles.secondaryBtnLabel]}
-                                                >An Offering of Food</Text>
+                                                >Offer</Text>
                                             </TouchableOpacity>
                                         </View>
                                     </View>

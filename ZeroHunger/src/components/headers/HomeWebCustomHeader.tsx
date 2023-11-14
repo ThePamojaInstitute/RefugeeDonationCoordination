@@ -16,9 +16,16 @@ export const HomeWebCustomHeader = ({ navigation, updater, expiringPosts, setExp
                     onPress={navigation.openDrawer}
                     testID="Home.drawerBtn"
                 />
-                <Text style={globalStyles.H4}>{t("app.title")}</Text>
+                <Text style={globalStyles.H4}>{"Zero Cold"}</Text>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center', alignSelf: 'flex-end' }}>
+                <Ionicons
+                    style={{ paddingHorizontal: 10 }}
+                    name="md-search"
+                    size={26}
+                    onPress={() => { navigation.navigate ("SearchScreen")}}
+                    testID="Home.searchBtn"
+                />
                 <MaterialIcons
                     style={{ paddingHorizontal: 10 }}
                     name="refresh"
