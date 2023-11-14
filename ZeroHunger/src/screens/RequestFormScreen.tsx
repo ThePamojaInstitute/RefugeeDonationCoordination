@@ -23,6 +23,7 @@ import { Char, PostFromData } from "../../types";
 import { useForm, Controller } from "react-hook-form"
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FormCustomHeader } from "../components/headers/FormCustomHeader";
+import moment from "moment";
 
 
 export const RequestFormScreen = ({ navigation }) => {
@@ -83,7 +84,7 @@ export const RequestFormScreen = ({ navigation }) => {
                 header: () => (
                     <FormCustomHeader
                         navigation={navigation}
-                        title={t("request.form.heading")}
+                        title={("Request")}
                         defaultPostalCode={defaultPostalCode}
                         setUseDefaultPostal={setUseDefaultPostal}
                         useDefaultPostal={useDefaultPostal}
@@ -145,11 +146,11 @@ export const RequestFormScreen = ({ navigation }) => {
         }
     }, [categories])
 
-    useEffect(() => {
-        if (errField === 'needBy') {
-            setErrField('')
-        }
-    }, [needBy])
+    // useEffect(() => {
+    //     if (errField === 'needBy') {
+    //         setErrField('')
+    //     }
+    // }, [needBy])
 
     useEffect(() => {
         if (useDefaultPostal) {
@@ -164,6 +165,9 @@ export const RequestFormScreen = ({ navigation }) => {
         categories.sort()
         diet.sort()
 
+        const formattedDate = moment(new Date('2030-01-01'), 'YYYY-MM-DD HH:mm')
+        // setNeedBy(String(formattedDate))
+
         const imageURL = await handleImageUpload(base64Images)
         const res = await createPost({
             postData: {
@@ -176,7 +180,8 @@ export const RequestFormScreen = ({ navigation }) => {
                 accessNeeds: accessNeeds,
                 categories: categories,
                 diet: diet,
-                expiryDate: needBy
+                // expiryDate: needBy
+                expiryDate: formattedDate
             },
             postType: 'r'
         })
@@ -211,11 +216,12 @@ export const RequestFormScreen = ({ navigation }) => {
             setErrField('categories')
             scrollTo('categories')
             return
-        } else if (!needBy) {
-            setErrField('needBy')
-            scrollTo('needBy')
-            return
-        }
+        } 
+        // else if (!needBy) {
+        //     setErrField('needBy')
+        //     scrollTo('needBy')
+        //     return
+        // }
 
         setLoading(true)
         try {
@@ -269,7 +275,7 @@ export const RequestFormScreen = ({ navigation }) => {
                                 value={value}
                                 nativeID="title"
                                 testID="Request.titleInput"
-                                placeholder="Enter name of food"
+                                placeholder=""
                                 placeholderTextColor="#656565"
                                 style={[styles.formInput,
                                 { borderColor: errors.title ? Colors.alert2 : Colors.midLight }]}
@@ -302,11 +308,11 @@ export const RequestFormScreen = ({ navigation }) => {
                     <Text
                         testID="Request.categoryLabel"
                         style={[styles.formTitleText, { color: errField === 'categories' ? Colors.alert2 : Colors.dark }]}
-                    >Food Category Type <Text style={{ color: Colors.alert2 }}>*</Text></Text>
+                    >Category<Text style={{ color: Colors.alert2 }}>*</Text></Text>
                     <Text
                         testID="Request.categoryDesc"
                         style={styles.formDescText}
-                    >Please select all the food categories that apply.</Text>
+                    >Please select all categories that apply.</Text>
                     <FoodFilters
                         state={categories}
                         setState={setCategories}
@@ -315,7 +321,7 @@ export const RequestFormScreen = ({ navigation }) => {
                         name={'categories'}
                     />
                 </View>
-                <View>
+                {/* <View>
                     <Text
                         testID="Request.categoryLabel"
                         style={styles.formTitleText}
@@ -331,13 +337,13 @@ export const RequestFormScreen = ({ navigation }) => {
                         getType={getDiet}
                         name={'diet'}
                     />
-                </View>
+                </View> */}
                 {/* <View style={{ opacity: 0.5 }}>
                         <Text testID="Request.quantityLabel" style={styles.formTitleText}>Quantity <Text style={{ color: Colors.alert2 }}>*</Text></Text>
                         <Text testID="Request.quantityDesc" style={styles.formDescText}>Please input the desired quantity of the food item you need.</Text>
                         <Quantity />
                     </View> */}
-                <View
+                {/* <View
                     onLayout={(event) => {
                         const layout = event.nativeEvent.layout;
                         dataSourceCords['needBy'] = layout.y;
@@ -357,7 +363,7 @@ export const RequestFormScreen = ({ navigation }) => {
                         > Your post will expire at the end of this date.</Text>
                     </Text>
                     <DatePicker setNeedBy={setNeedBy} errField={errField} />
-                </View>
+                </View> */}
                 <View
                     onLayout={(event) => {
                         const layout = event.nativeEvent.layout;
@@ -380,6 +386,8 @@ export const RequestFormScreen = ({ navigation }) => {
                             onPress={() => {
                                 clearErrors('postalCode')
                                 setUseDefaultPostal(!useDefaultPostal)
+                                console.log(needBy)
+                                console.log(moment(new Date('2030-01-01'), 'YYYY-MM-DD HH:mm').toString())
                             }}
                             style={styles.icon}
                         />

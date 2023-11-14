@@ -228,8 +228,8 @@ export const HomeScreen = ({ navigation, route }) => {
 
     const filters = [
         'Sort',
-        `Food category${categories.length > 0 ? ` (${categories.length})` : ''}`,
-        `Dietary preference${diet.length > 0 ? ` (${diet.length})` : ''}`,
+        `Category${categories.length > 0 ? ` (${categories.length})` : ''}`,
+        // `Dietary preference${diet.length > 0 ? ` (${diet.length})` : ''}`,
         `Delivery / Pick up${logistics.length > 0 ? ` (${logistics.length})` : ''}`,
         'Location'
     ]

@@ -212,13 +212,13 @@ export const OfferDetailsScreen = ({ navigation }) => {
                                     testID="OffDet.detailCat"
                                     style={[globalStyles.Small1, styles.smallText,
                                     { height: heights.categories ?? 'auto' }]}
-                                >Food category</Text>
+                                >Category</Text>
                                 {/* <Text testID="OffDet.detailsQuant" style={[globalStyles.Small1, styles.smallText]}>Quantity</Text> */}
-                                <Text
+                                {/* <Text
                                     testID="OffDet.detailsReq"
                                     style={[globalStyles.Small1, styles.smallText,
                                     { height: heights.diet ?? 'auto' }]}
-                                >Dietary requirements</Text>
+                                >Dietary requirements</Text> */}
                             </View>
                             <View style={{ flexShrink: 1 }}>
                                 <Text
@@ -233,7 +233,7 @@ export const OfferDetailsScreen = ({ navigation }) => {
                                     }}
                                 >{categories}</Text>
                                 {/* <Text testID="OffDet.detailsQuantVal" style={[globalStyles.Small1, { marginBottom: 8 }]}>N/A</Text> */}
-                                <Text
+                                {/* <Text
                                     testID="OffDet.detailsReqVal"
                                     style={globalStyles.Small1}
                                     onLayout={(event) => {
@@ -243,7 +243,7 @@ export const OfferDetailsScreen = ({ navigation }) => {
                                             diet: layout.height
                                         }))
                                     }}
-                                >{diet}</Text>
+                                >{diet}</Text> */}
                             </View>
                         </View>
                     </View>
