@@ -122,7 +122,7 @@ const HomeStackNavigator = ({ navigation }) => {
                     }}
                 />
             }
-            {Platform.OS !== 'web' ?
+            {/* {Platform.OS !== 'web' ?
                 <Stack.Screen
                     name="PermissionsScreen"
                     component={PermissionsScreen}
@@ -210,7 +210,7 @@ const HomeStackNavigator = ({ navigation }) => {
                         contentStyle: { backgroundColor: Colors.offWhite },
                     }}
                 />
-            }
+            } */}
             {Platform.OS !== 'web' ?
                 <Stack.Screen
                     name="HomeScreen"
