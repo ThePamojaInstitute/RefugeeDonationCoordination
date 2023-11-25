@@ -84,12 +84,12 @@ def get_post(post_id, post_type):
     except:
         return Response("Post not found", 404)
     
-def get_filtered_posts(posts_type, categories, diet, logistics, distance, user):
+def get_filtered_posts(posts_type, categories, diet, logistics, distance, searchQuery, user):
     try:
         if(posts_type == "r"):
-            posts = RequestPost.objects.all().filter(fulfilled=False, expiryDate__gte=datetime.now())
+            posts = RequestPost.objects.all().filter(fulfilled=False, expiryDate__gte=datetime.now(), title__icontains=searchQuery)
         else:
-            posts = OfferPost.objects.all().filter(fulfilled=False, expiryDate__gte=datetime.now())
+            posts = OfferPost.objects.all().filter(fulfilled=False, expiryDate__gte=datetime.now(), title__icontains=searchQuery)
 
         if(len(categories) > 0):
             categories_filter = create_filter(categories, FOOD_CATEGORIES, 'categories')
@@ -248,11 +248,12 @@ class requestPostsForFeed(APIView):
             diet = request.GET.getlist('diet[]',"")
             logistics = request.GET.getlist('logistics[]',"")
             distance = request.GET.get('distance',15)
+            searchQuery = request.GET.get('searchQuery', "")
         except Exception as e:
             return Response(e.__str__(), 400) 
 
         try:
-            posts = get_filtered_posts(postsType, categories, diet, logistics, int(distance), user)
+            posts = get_filtered_posts(postsType, categories, diet, logistics, int(distance), searchQuery, user)
             posts = sort_posts(posts, sortBy, page)
         except Exception as e:
             return Response(e.__str__(), 500) 
@@ -326,7 +327,7 @@ class ImageUploader(APIView):
             # )
 
             
-            #connection_string = "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;QueueEndpoint=http://127.0.0.1:10001/devstoreaccount1;TableEndpoint=http://127.0.0.1:10002/devstoreaccount1;"
+            # connection_string = "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;QueueEndpoint=http://127.0.0.1:10001/devstoreaccount1;TableEndpoint=http://127.0.0.1:10002/devstoreaccount1;"
             container_client = ContainerClient.from_connection_string(conn_str=connection_string, container_name="post-images")
             if not container_client.exists():
                 container_client.create_container()

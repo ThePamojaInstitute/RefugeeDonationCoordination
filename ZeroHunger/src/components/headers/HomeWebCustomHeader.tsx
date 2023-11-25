@@ -2,8 +2,7 @@ import { Text, View } from "react-native"
 import { Colors, Fonts, globalStyles } from "../../../styles/globalStyleSheet"
 import { Ionicons, MaterialIcons } from "@expo/vector-icons"
 
-
-export const HomeWebCustomHeader = ({ navigation, updater, expiringPosts, setExpiringPosts, t }) => (
+export const HomeWebCustomHeader = ({ navigation, updater, expiringPosts, setExpiringPosts, setShowSearch, t }) => (
     <View style={{ backgroundColor: Colors.offWhite }}>
         <View style={{ maxWidth: 700, marginHorizontal: 'auto', width: '100%', marginVertical: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', alignSelf: 'flex-start' }}>
@@ -23,7 +22,8 @@ export const HomeWebCustomHeader = ({ navigation, updater, expiringPosts, setExp
                     style={{ paddingHorizontal: 10 }}
                     name="md-search"
                     size={26}
-                    onPress={() => { navigation.navigate ("SearchScreen")}}
+                    onPress={setShowSearch}
+                    // onPress={() => {console.log(setShowSearch)}}
                     testID="Home.searchBtn"
                 />
                 <MaterialIcons
