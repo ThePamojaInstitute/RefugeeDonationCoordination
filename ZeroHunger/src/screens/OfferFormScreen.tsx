@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { ScrollView, TextInput, TouchableOpacity, Text, View, Platform, KeyboardAvoidingView } from "react-native";
+import { ScrollView, TextInput, TouchableOpacity, Text, View, Platform } from "react-native";
 import styles from "../../styles/screens/postFormStyleSheet"
 import { Colors, Fonts, globalStyles } from "../../styles/globalStyleSheet";
 import ImagePicker from "../components/ImagePicker";
@@ -23,6 +23,7 @@ import { Char, PostFromData } from "../../types";
 import { Controller, useForm } from "react-hook-form";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FormCustomHeader } from "../components/headers/FormCustomHeader";
+import moment from "moment";
 
 
 export const OfferFormScreen = ({ navigation }) => {
@@ -82,7 +83,7 @@ export const OfferFormScreen = ({ navigation }) => {
                 header: () => (
                     <FormCustomHeader
                         navigation={navigation}
-                        title={"Offer Food"}
+                        title={"Offer"}
                         defaultPostalCode={defaultPostalCode}
                         setUseDefaultPostal={setUseDefaultPostal}
                         useDefaultPostal={useDefaultPostal}
@@ -138,11 +139,11 @@ export const OfferFormScreen = ({ navigation }) => {
         }
     }, [categories])
 
-    useEffect(() => {
-        if (errField === 'expiryDate') {
-            setErrField('')
-        }
-    }, [expiryDate])
+    // useEffect(() => {
+    //     if (errField === 'expiryDate') {
+    //         setErrField('')
+    //     }
+    // }, [expiryDate])
 
     useEffect(() => {
         if (useDefaultPostal) {
@@ -151,6 +152,8 @@ export const OfferFormScreen = ({ navigation }) => {
             setValue('postalCode', '')
         }
     }, [useDefaultPostal])
+
+    const formattedDate = moment(new Date('2030-01-01'), 'YYYY-MM-DD HH:mm')
 
     const submitPost = async (data: object) => {
         const imageURL = await handleImageUpload(base64Images)
@@ -165,7 +168,8 @@ export const OfferFormScreen = ({ navigation }) => {
                 accessNeeds: accessNeeds,
                 categories: categories.sort(),
                 diet: diet.sort(),
-                expiryDate: expiryDate
+                // expiryDate: expiryDate
+                expiryDate: formattedDate
             },
             postType: 'o'
         })
@@ -200,11 +204,12 @@ export const OfferFormScreen = ({ navigation }) => {
             setErrField('categories')
             scrollTo('categories')
             return
-        } else if (!expiryDate) {
-            setErrField('expiryDate')
-            scrollTo('expiryDate')
-            return
-        }
+        } 
+        // else if (!expiryDate) {
+        //     setErrField('expiryDate')
+        //     scrollTo('expiryDate')
+        //     return
+        // }
 
         setLoading(true)
         try {
@@ -217,7 +222,7 @@ export const OfferFormScreen = ({ navigation }) => {
     }
 
     return (
-        <KeyboardAvoidingView style={{ height: '100%', backgroundColor: Colors.Background }}>
+        <View style={{ height: '100%', backgroundColor: Colors.Background }}>
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 testID="Offer.formContainer"
@@ -258,7 +263,7 @@ export const OfferFormScreen = ({ navigation }) => {
                                 value={value}
                                 nativeID="title"
                                 testID="Offer.titleInput"
-                                placeholder="Enter name of food offering"
+                                placeholder=""
                                 placeholderTextColor="#656565"
                                 style={[styles.formInput, { borderColor: errors.title ? Colors.alert2 : Colors.midLight }]}
                                 onChangeText={onChange}
@@ -290,7 +295,7 @@ export const OfferFormScreen = ({ navigation }) => {
                     <Text
                         testID="Request.categoryLabel"
                         style={[styles.formTitleText, { color: errField === 'categories' ? Colors.alert2 : Colors.dark }]}
-                    >Food Category Type <Text style={{ color: Colors.alert2 }}>*</Text></Text>
+                    >Category<Text style={{ color: Colors.alert2 }}>*</Text></Text>
                     <Text
                         testID="Request.categoryDesc"
                         style={styles.formDescText}
@@ -303,7 +308,7 @@ export const OfferFormScreen = ({ navigation }) => {
                         name={'categories'}
                     />
                 </View>
-                <View>
+                {/* <View>
                     <Text
                         testID="Request.categoryLabel"
                         style={styles.formTitleText}
@@ -319,13 +324,13 @@ export const OfferFormScreen = ({ navigation }) => {
                         getType={getDiet}
                         name={'diet'}
                     />
-                </View>
+                </View> */}
                 {/* <View style={{ opacity: 0.5 }}>
                         <Text testID="Offer.quantityLabel" style={styles.formTitleText}>Quantity <Text style={{ color: Colors.alert2 }}>*</Text></Text>
                         <Text testID="Offer.quantityDesc" style={styles.formDescText}>Please input the quantity of the food you are offering.</Text>
                         <Quantity />
                     </View> */}
-                <View
+                {/* <View
                     onLayout={(event) => {
                         const layout = event.nativeEvent.layout;
                         dataSourceCords['expiryDate'] = layout.y;
@@ -345,7 +350,7 @@ export const OfferFormScreen = ({ navigation }) => {
                         > Your post will expire at the end of this date.</Text>
                     </Text>
                     <DatePicker setNeedBy={setExpiryDate} errField={errField} />
-                </View>
+                </View> */}
                 <View
                     onLayout={(event) => {
                         const layout = event.nativeEvent.layout;
@@ -453,7 +458,7 @@ export const OfferFormScreen = ({ navigation }) => {
                 <AccessNeeds accessNeeds={accessNeeds} setAccessNeeds={setAccessNeeds} postType={"o"} />
             </View> */}
                 <View>
-                    <Text testID="Offer.descTitle" style={styles.formTitleText}>{t("offer.form.fields.2.label")}</Text>
+                    <Text testID="Offer.descTitle" style={styles.formTitleText}>{("Description")}</Text>
                     <Text testID="Offer.descDesc" style={styles.formDescText}>Describe your food offer in detail</Text>
                 </View>
                 <View style={styles.formDescInputView}>
@@ -470,7 +475,7 @@ export const OfferFormScreen = ({ navigation }) => {
                     />
                 </View>
             </ScrollView >
-        </KeyboardAvoidingView>
+        </View>
     )
 }
 

@@ -4,7 +4,7 @@ import Modal from 'react-native-modal';
 import { Colors, Fonts, globalStyles } from "../../styles/globalStyleSheet";
 import styles from "../../styles/components/postsFiltersStyleSheet"
 import { Entypo, Ionicons, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-import { DIETPREFERENCES, FOODCATEGORIES, getCategory, getDiet, handlePreferences } from "../controllers/post";
+import { DIETPREFERENCES, FOODCATEGORIES, getCategory, getDiet, handlePreferences, getCategoryCold } from "../controllers/post";
 import { ScrollView } from "react-native-gesture-handler";
 import { LOGISTICS, getLogisticsType } from "../controllers/preferences";
 import Slider from '@react-native-community/slider';
@@ -229,7 +229,7 @@ const PostsFilters = ({
                                 }}
                                 testID="Bottom.postNavModalReqBtn"
                             >
-                                <Text style={[globalStyles.H4, { marginTop: 5 }]}>Food category</Text>
+                                <Text style={[globalStyles.H4, { marginTop: 5 }]}>Category</Text>
                                 <Entypo
                                     name={`chevron-${showFilter === 'category' ? 'up' : 'down'}`}
                                     size={24}
@@ -244,7 +244,7 @@ const PostsFilters = ({
                     </View>
                     {showFilter === 'category' &&
                         <FoodCategory state={categories} setState={setCategories} getType={getCategory} list={FOODCATEGORIES} />}
-                    <View style={styles.modalItem}>
+                    {/* <View style={styles.modalItem}>
                         <View style={[styles.modalItemBorder, { width: '99%', alignSelf: 'center' }]}>
                             <TouchableOpacity
                                 style={styles.modalItem}
@@ -269,7 +269,7 @@ const PostsFilters = ({
                         </View>
                     </View>
                     {showFilter === 'diet' &&
-                        <FoodCategory state={diet} setState={setDiet} getType={getDiet} list={DIETPREFERENCES} />}
+                        <FoodCategory state={diet} setState={setDiet} getType={getDiet} list={DIETPREFERENCES} />} */}
                     <View style={styles.modalItem}>
                         <View style={[styles.modalItemBorder, { width: '99%', alignSelf: 'center' }]}>
                             <TouchableOpacity

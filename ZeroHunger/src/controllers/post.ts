@@ -18,8 +18,8 @@ interface IFOODCATEGORIES {
     Fish: Char,
     Legumes: Char,
     BakedGoods: Char,
-    Snacks: Char,
-    Condiments: Char,
+    // Snacks: Char,
+    // Condiments: Char,
     Other: Char,
 }
 interface IDIETPREFERENCES {
@@ -32,6 +32,29 @@ interface IDIETPREFERENCES {
     SugarFree: Char,
     ShellfishFree: Char,
     Other: Char,
+}
+interface ICATEGORIES {
+    Clothing: Char,
+    Toiletries: Char,
+    Electronics: Char,
+    Medicine: Char,
+    BulkFood: Char,
+    SnackFood: Char,
+    Supplements: Char,
+    CleaningSupples: Char,
+    Other: Char,
+}
+
+export const CATEGORIES: ICATEGORIES = {
+    Clothing: 'a',
+    Toiletries: 'b',
+    Electronics: 'c',
+    Medicine: 'd',
+    BulkFood: 'e',
+    SnackFood: 'f',
+    Supplements: 'g',
+    CleaningSupples: 'h',
+    Other: 'i',
 }
 
 export const LOGISTICSPREFERENCES: ILOGISTICSPREFERENCES = {
@@ -50,8 +73,8 @@ export const FOODCATEGORIES: IFOODCATEGORIES = {
     Fish: 'g',
     Legumes: 'h',
     BakedGoods: 'i',
-    Snacks: 'j',
-    Condiments: 'k',
+    // Snacks: 'j',
+    // Condiments: 'k',
     Other: 'l',
 }
 export const DIETPREFERENCES: IDIETPREFERENCES = {
@@ -77,7 +100,7 @@ export const createPost = async (post: {
         accessNeeds: string,
         categories: Char[],
         diet: Char[],
-        expiryDate: string,
+        expiryDate: any,
     }
     postType: Char
 }) => {
@@ -247,29 +270,39 @@ export const formatPostalCode = (postalCode: string) => {
 export const getCategory = (char: Char) => {
     switch (char) {
         case FOODCATEGORIES.DairyAlternatives:
-            return 'Dairy alternatives'
+            // return 'Dairy alternatives'
+            return 'Clothing'
         case FOODCATEGORIES.MeatPoultry:
-            return 'Meat / Poultry'
-        case FOODCATEGORIES.BakedGoods:
-            return 'Baked goods'
-        case FOODCATEGORIES.Fruits:
-            return 'Fruits'
-        case FOODCATEGORIES.Vegetables:
-            return 'Vegetables'
-        case FOODCATEGORIES.Grains:
-            return 'Grains'
-        case FOODCATEGORIES.Dairy:
-            return 'Dairy'
-        case FOODCATEGORIES.Fish:
-            return 'Fish'
+            // return 'Meat / Poultry'
+            return 'Bulk Food'
+        // case FOODCATEGORIES.BakedGoods:
         case FOODCATEGORIES.Legumes:
-            return 'Legumes'
-        case FOODCATEGORIES.BakedGoods:
-            return 'Baked goods'
-        case FOODCATEGORIES.Snacks:
+            // return 'Baked goods'
             return 'Snacks'
-        case FOODCATEGORIES.Condiments:
-            return 'Condiments'
+        case FOODCATEGORIES.Fruits:
+            // return 'Fruits'
+            return 'Cleaning Supplies'
+        case FOODCATEGORIES.Vegetables:
+            // return 'Vegetables'
+            return 'Electronics'
+        case FOODCATEGORIES.Grains:
+            // return 'Grains'
+            return 'Supplements'
+        case FOODCATEGORIES.Dairy:
+            // return 'Dairy'
+            return 'Toiletries'
+        case FOODCATEGORIES.Fish:
+            // return 'Fish'
+            return 'Medicine'
+        // case FOODCATEGORIES.Legumes:
+        //     return 'Legumes'
+        case FOODCATEGORIES.BakedGoods:
+            // return 'Baked goods'
+            return 'Tableware'
+        // case FOODCATEGORIES.Snacks:
+        //     return 'Snacks'
+        // case FOODCATEGORIES.Condiments:
+        //     return 'Condiments'
         case FOODCATEGORIES.Other:
             return 'Other'
         default:
@@ -298,6 +331,31 @@ export const getDiet = (char: Char) => {
         case DIETPREFERENCES.Other:
             return 'Other'
         default:
+            return 'Other'
+    }
+}
+
+export const getCategoryCold = (char: Char) => {
+    switch (char) {
+        case CATEGORIES.Clothing:
+            return 'Clothing'
+        case CATEGORIES.BulkFood:
+            return 'Bulk Food'
+        case CATEGORIES.SnackFood:
+            return 'Snacks'
+        case CATEGORIES.CleaningSupples:
+            return 'Cleaning Supplies'
+        case CATEGORIES.Electronics:
+            return 'Electronics'
+        case CATEGORIES.Supplements:
+            return 'Supplements'
+        case CATEGORIES.Toiletries:
+            return 'Toiletries'
+        case CATEGORIES.Medicine:
+            return 'Medicine'
+        case CATEGORIES.Other:
+            return 'Other'
+        default: 
             return 'Other'
     }
 }

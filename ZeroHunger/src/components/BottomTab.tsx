@@ -253,6 +253,7 @@ const HomeStackNavigator = ({ navigation }) => {
                                 updater={() => { }}
                                 expiringPosts={[]}
                                 setExpiringPosts={() => { }}
+                                setShowSearch={() => { }}
                                 t={t}
                             />
                         )

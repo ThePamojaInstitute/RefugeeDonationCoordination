@@ -115,7 +115,7 @@ export const Post: React.FC<Props> = ({ post, navigation, setShowRequests, selec
                     { marginTop: post.fulfilled ? 20 : -5, color: post.fulfilled ? Colors.primaryDark : Colors.alert2 }]}
                     >{post.fulfilled ? 'Fulfilled' : 'Not fulfilled'}</Text>
                 }
-                {!post.fulfilled &&
+                {/* {!post.fulfilled &&
                     <View style={{ flexDirection: 'row' }}>
                         <View style={{ flexDirection: 'row', position: 'absolute', right: 0 }}>
                             {(user['username'] === post.username) && expiryInDays < 2 &&
@@ -138,7 +138,7 @@ export const Post: React.FC<Props> = ({ post, navigation, setShowRequests, selec
                             </View>
                         </View>
                     </View>
-                }
+                } */}
             </View>
         </TouchableOpacity>
         // </GestureRecognizer>
