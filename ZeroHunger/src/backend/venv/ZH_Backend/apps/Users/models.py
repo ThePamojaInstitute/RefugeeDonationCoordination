@@ -28,7 +28,7 @@ class BasicUser(AbstractBaseUser, PermissionsMixin):
     distance = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(30)], blank=True, default=15)
     allowNewMessagesNotifications = models.BooleanField(default=True)
     allowExpiringPostsNotifications = models.BooleanField(default=True)
-    canPost = models.BooleanField(default=False) 
+    canPostRequests = models.BooleanField(default=False) 
 
     REQUIRED_FIELDS = ["email"]
 
