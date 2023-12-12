@@ -350,7 +350,7 @@ export const CreateAccountScreen = ({ navigation }) => {
           <Text testID="SignUp.termsInputLabel" style={[styles.inputLabel,
           { color: errMsg ? Colors.alert2 : Colors.dark }]}>Terms and Conditions</Text>
           <Text testID="SignUp.termsAndCondText" style={styles.termsAndCondText}>Read our <Text testID="SignUp.termsAndCondLink" style={{ textDecorationLine: 'underline' }}
-            onPress={() => console.log("terms and conditions")}
+            onPress={() => { navigation.navigate("TermsAndConditionsScreen") }}
           >terms and conditions.</Text></Text>
           {errMsg &&
             <Text

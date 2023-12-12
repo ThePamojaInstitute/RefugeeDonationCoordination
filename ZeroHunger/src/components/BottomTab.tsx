@@ -17,6 +17,7 @@ import OnboardingScreen from '../screens/OnboardingScreen';
 import Conversations from '../screens/Conversations';
 import Chat from './Chat';
 import NotificationsScreen from '../screens/NotificationsScreen';
+import TermsAndConditionsScreen from '../screens/TermsAndConditionsScreen';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Modal from 'react-native-modal';
@@ -523,6 +524,19 @@ const HomeStackNavigator = ({ navigation }) => {
                     },
                 }}
             />
+            <Stack.Screen
+                name="TermsAndConditionsScreen"
+                component={TermsAndConditionsScreen}
+                options={{
+                    headerShown: true,
+                    headerShadowVisible: false,
+                    title: "Terms and Conditions",
+                    headerTitleAlign: 'center',
+                    headerStyle: {
+                        backgroundColor: Colors.offWhite,
+                    },
+                }}
+            />
         </Stack.Navigator >
     )
 }
@@ -676,6 +690,7 @@ const BottomTab = () => {
         'PermissionsScreen',
         'RequestFormScreen',
         'OfferFormScreen',
+        'TermsAndConditionsScreen'
     ]
 
     return (

@@ -88,7 +88,7 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
                 testID="Drawer.termsBtn"
                 label={() => <Text style={globalStyles.Body}>{t("menu.side.terms.label")}</Text>}
                 icon={() => <Image source={require('../../assets/Scroll.png')} style={styles.Img} />}
-                onPress={() => { }}
+                onPress={() => { props.navigation.navigate("TermsAndConditionsScreen") }}
 
             />
             <DrawerItem
