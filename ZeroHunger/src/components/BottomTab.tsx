@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { View, TouchableOpacity, Text, Dimensions, Image, Platform } from "react-native";
 import styles from "../../styles/components/bottomTabStyleSheet"
 import { Colors, globalStyles } from '../../styles/globalStyleSheet';
@@ -36,6 +36,7 @@ import { AccSettingsFormCustomHeader } from "./headers/AccSettingsCustomHeader";
 import { FormCustomHeader } from "./headers/FormCustomHeader";
 import { MainCustomHeader } from "./headers/MainCustomHeader";
 import { GuidLinesCustomHeader } from "./headers/GuideLinesCustomHeader";
+import { getPreferences } from "../controllers/preferences";
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -652,6 +653,20 @@ const BottomTab = () => {
 
     const [modalVisible, setModalVisible] = useState(false)
     const [height, setHeight] = useState(0)
+    const [canPostRequests, setCanPostRequests] = useState(false)
+
+    const initializeFilters = async () => {
+        try {
+            const data = await getPreferences()
+            setCanPostRequests(data['canPostRequests'])
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        initializeFilters()
+    }, [])
 
     const bottomTabDisabledScreens = [
         'LoginScreen',
@@ -757,11 +772,14 @@ const BottomTab = () => {
                                         </View>
                                         <View style={{ alignItems: "center" }}>
                                             <TouchableOpacity
-                                                style={[globalStyles.secondaryBtn, { marginTop: 10 }]}
+                                                // style={[globalStyles.secondaryBtn, { marginTop: 10 }]}
+                                                style={[globalStyles.secondaryBtn, 
+                                                    canPostRequests ? { opacity: 1.0, marginTop: 10 } : { opacity: 0.7, marginTop: 10 }]}
                                                 onPress={() => {
                                                     setModalVisible(false)
                                                     navigation.navigate("RequestFormScreen")
                                                 }}
+                                                disabled={!canPostRequests}
                                                 testID="Bottom.postNavModalReqBtn"
                                             >
                                                 <Text

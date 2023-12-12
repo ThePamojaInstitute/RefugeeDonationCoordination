@@ -181,6 +181,8 @@ class userPreferences(APIView):
             data['postalCode'] = user.get_postal_code()
             data['distance'] = user.get_distance()
 
+            data['canPostRequests'] = user.get_can_post_requests()
+
             return Response(data, 200)
         except Exception as e:
             print(e)
@@ -329,3 +331,25 @@ class updateNotificationsSettings(APIView):
             return Response(e, 500)
 
         return Response(status=204)
+    
+# class getCanPostRequests(APIView):
+#     def get(self, request):
+#         try:
+#             decoded_token = jwt.decode(request.data['headers']['Authorization'], settings.SECRET_KEY)
+#         except:
+#             return Response("Token invalid or not given", 401)
+        
+#         try:
+#             user = BasicUser.objects.get(pk=decoded_token['user_id'])
+#         except Exception:
+#             return Response("User not found", 404)
+        
+#         data = {}
+#         try:
+#             data['canPostRequests'] = user.get_can_post_requests()
+
+#             return Response(data, 200)
+#         except Exception as e:
+#             print(e)
+#             return Response({e.__str__()}, 500)
+        

@@ -57,6 +57,7 @@ export const HomeScreen = ({ navigation, route }) => {
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [searchQuery, setSearchQuery] = useState('')
     const [showSearch, setShowSearch] = useState(false)
+    const [canPostRequests, setCanPostRequests] = useState(false)
 
     // on navigation change
     useFocusEffect(() => {
@@ -116,6 +117,7 @@ export const HomeScreen = ({ navigation, route }) => {
             setDistance(data['distance'])
             setDiet(data['diet'])
             setLogistics(data['logistics'])
+            setCanPostRequests(data['canPostRequests'])
         } catch (error) {
             console.log(error);
         }

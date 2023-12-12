@@ -144,3 +144,17 @@ export const intitializePreferences = async (
         })
     }
 }
+
+// export const getCanPostRequests = async () => {
+//     try {
+//         const res = await axiosInstance.get('users/getCanPostRequests', {
+//             headers: {
+//                 Authorization: await getAccessToken()
+//             }
+//         })
+
+//         return res.data
+//     } catch (err) {
+//         console.log(err)
+//     }
+// }

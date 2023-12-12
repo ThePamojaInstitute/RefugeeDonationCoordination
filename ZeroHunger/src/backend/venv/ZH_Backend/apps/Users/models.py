@@ -83,3 +83,6 @@ class BasicUser(AbstractBaseUser, PermissionsMixin):
 
         self.longitude = float(longitude)
         self.latitude = float(latitude)
+
+    def get_can_post_requests(self):
+        return self.canPostRequests
