@@ -4,7 +4,7 @@ import Modal from 'react-native-modal';
 import { Colors, Fonts, globalStyles } from "../../styles/globalStyleSheet";
 import styles from "../../styles/components/postsFiltersStyleSheet"
 import { Entypo, Ionicons, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-import { DIETPREFERENCES, FOODCATEGORIES, getCategory, getDiet, handlePreferences, getCategoryCold } from "../controllers/post";
+import { DIETPREFERENCES, FOODCATEGORIES, getCategory, getDiet, handlePreferences } from "../controllers/post";
 import { ScrollView } from "react-native-gesture-handler";
 import { LOGISTICS, getLogisticsType } from "../controllers/preferences";
 import Slider from '@react-native-community/slider';

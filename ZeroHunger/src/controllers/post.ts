@@ -9,17 +9,14 @@ interface ILOGISTICSPREFERENCES {
     WHEELCHAIR: Char
 }
 interface IFOODCATEGORIES {
-    Fruits: Char,
-    Vegetables: Char,
-    Grains: Char,
-    Dairy: Char,
-    DairyAlternatives: Char,
-    MeatPoultry: Char,
-    Fish: Char,
-    Legumes: Char,
-    BakedGoods: Char,
-    // Snacks: Char,
-    // Condiments: Char,
+    Clothing: Char,
+    FoodDrink: Char,
+    Tableware: Char,
+    Electronics: Char,
+    Medicine: Char,
+    Toiletries: Char,
+    Bedding: Char,
+    UtilityBills: Char,
     Other: Char,
 }
 interface IDIETPREFERENCES {
@@ -33,29 +30,6 @@ interface IDIETPREFERENCES {
     ShellfishFree: Char,
     Other: Char,
 }
-interface ICATEGORIES {
-    Clothing: Char,
-    Toiletries: Char,
-    Electronics: Char,
-    Medicine: Char,
-    BulkFood: Char,
-    SnackFood: Char,
-    Supplements: Char,
-    CleaningSupples: Char,
-    Other: Char,
-}
-
-export const CATEGORIES: ICATEGORIES = {
-    Clothing: 'a',
-    Toiletries: 'b',
-    Electronics: 'c',
-    Medicine: 'd',
-    BulkFood: 'e',
-    SnackFood: 'f',
-    Supplements: 'g',
-    CleaningSupples: 'h',
-    Other: 'i',
-}
 
 export const LOGISTICSPREFERENCES: ILOGISTICSPREFERENCES = {
     PICKUP: 'a',
@@ -64,18 +38,15 @@ export const LOGISTICSPREFERENCES: ILOGISTICSPREFERENCES = {
     WHEELCHAIR: 'd'
 }
 export const FOODCATEGORIES: IFOODCATEGORIES = {
-    Fruits: 'a',
-    Vegetables: 'b',
-    Grains: 'c',
-    Dairy: 'd',
-    DairyAlternatives: 'e',
-    MeatPoultry: 'f',
-    Fish: 'g',
-    Legumes: 'h',
-    BakedGoods: 'i',
-    // Snacks: 'j',
-    // Condiments: 'k',
-    Other: 'l',
+    Clothing: 'a',
+    FoodDrink: 'b',
+    Tableware: 'c',
+    Electronics: 'd',
+    Medicine: 'e',
+    Toiletries: 'f',
+    Bedding: 'g',
+    UtilityBills: 'h',
+    Other: 'i',
 }
 export const DIETPREFERENCES: IDIETPREFERENCES = {
     Halal: 'a',
@@ -269,40 +240,22 @@ export const formatPostalCode = (postalCode: string) => {
 
 export const getCategory = (char: Char) => {
     switch (char) {
-        case FOODCATEGORIES.DairyAlternatives:
-            // return 'Dairy alternatives'
+        case FOODCATEGORIES.Clothing:
             return 'Clothing'
-        case FOODCATEGORIES.MeatPoultry:
-            // return 'Meat / Poultry'
-            return 'Bulk Food'
-        // case FOODCATEGORIES.BakedGoods:
-        case FOODCATEGORIES.Legumes:
-            // return 'Baked goods'
-            return 'Snacks'
-        case FOODCATEGORIES.Fruits:
-            // return 'Fruits'
-            return 'Cleaning Supplies'
-        case FOODCATEGORIES.Vegetables:
-            // return 'Vegetables'
-            return 'Electronics'
-        case FOODCATEGORIES.Grains:
-            // return 'Grains'
-            return 'Supplements'
-        case FOODCATEGORIES.Dairy:
-            // return 'Dairy'
-            return 'Toiletries'
-        case FOODCATEGORIES.Fish:
-            // return 'Fish'
-            return 'Medicine'
-        // case FOODCATEGORIES.Legumes:
-        //     return 'Legumes'
-        case FOODCATEGORIES.BakedGoods:
-            // return 'Baked goods'
+        case FOODCATEGORIES.FoodDrink:
+            return 'Food & Drink'
+        case FOODCATEGORIES.Tableware:
             return 'Tableware'
-        // case FOODCATEGORIES.Snacks:
-        //     return 'Snacks'
-        // case FOODCATEGORIES.Condiments:
-        //     return 'Condiments'
+        case FOODCATEGORIES.Electronics:
+            return 'Electronics'
+        case FOODCATEGORIES.Medicine:
+            return 'Medicine'
+        case FOODCATEGORIES.Toiletries:
+            return 'Toiletries'
+        case FOODCATEGORIES.Bedding:
+            return 'Bedding'
+        case FOODCATEGORIES.UtilityBills:
+            return 'Utility Bills'
         case FOODCATEGORIES.Other:
             return 'Other'
         default:
@@ -331,31 +284,6 @@ export const getDiet = (char: Char) => {
         case DIETPREFERENCES.Other:
             return 'Other'
         default:
-            return 'Other'
-    }
-}
-
-export const getCategoryCold = (char: Char) => {
-    switch (char) {
-        case CATEGORIES.Clothing:
-            return 'Clothing'
-        case CATEGORIES.BulkFood:
-            return 'Bulk Food'
-        case CATEGORIES.SnackFood:
-            return 'Snacks'
-        case CATEGORIES.CleaningSupples:
-            return 'Cleaning Supplies'
-        case CATEGORIES.Electronics:
-            return 'Electronics'
-        case CATEGORIES.Supplements:
-            return 'Supplements'
-        case CATEGORIES.Toiletries:
-            return 'Toiletries'
-        case CATEGORIES.Medicine:
-            return 'Medicine'
-        case CATEGORIES.Other:
-            return 'Other'
-        default: 
             return 'Other'
     }
 }
