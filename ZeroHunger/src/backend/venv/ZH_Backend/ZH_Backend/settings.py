@@ -18,21 +18,22 @@ from azure.identity import DefaultAzureCredential
 import environ
 import logging
 
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env()
-environ.Env.read_env()
+environ.Env.read_env("env.env")
 
 #Sets up azure keyvault to get secrets
-keyVaultName = os.environ["KEYVAULT_NAME"]
-vaultURI = f"https://{keyVaultName}.vault.azure.net"
-#credential = DefaultAzureCredential( managed_identity_client_id = os.environ["MANAGED_ID"] )
-credential = DefaultAzureCredential()
+keyVaultName = os.environ.get("KEYVAULT_NAME")
+vaultURI = f"https://zerocold-keyvault.vault.azure.net"
+credential = DefaultAzureCredential( managed_identity_client_id = os.environ.get("MANAGED_ID"))
+#credential = DefaultAzureCredential()
 client = SecretClient(vault_url=vaultURI, credential=credential)
 azure_redis_password = client.get_secret('REDIS-PASSWORD').value
 
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -48,7 +49,9 @@ SECRET_KEY = client.get_secret('DJANGO-KEY').value
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['zerocoldbackend.azurewebsites.net']
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
 
 
 # Application definition
@@ -89,6 +92,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
 ]
+CSRF_TRUSTED_ORIGINS = ["https://zerocoldbackend.azurewebsites.net"] #make this keyvault eventually
 
 ROOT_URLCONF = 'ZH_Backend.urls'
 
