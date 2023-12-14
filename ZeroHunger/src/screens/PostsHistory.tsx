@@ -1,16 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Text, View, Pressable, TouchableOpacity, Dimensions, Platform } from "react-native"
 import HistoryPostRenderer from "../components/HistoryPostRenderer";
 import styles from "../../styles/screens/postsHistory";
 import { Colors, globalStyles } from "../../styles/globalStyleSheet";
 import { Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import Modal from 'react-native-modal';
+import { getPreferences } from "../controllers/preferences";
 
 export const PostsHistory = ({ navigation }) => {
-    const [showRequests, setShowRequests] = useState(true)
+    const [showRequests, setShowRequests] = useState(false)
     const [modalVisible, setModalVisible] = useState(false)
     const [orderByNewest, setOrderByNewest] = useState(true)
     const [height, setHeight] = useState(0)
+    const [canPostRequests, setCanPostRequests] = useState(false)
+
+    const initializeFilters = async () => {
+        try {
+            const data = await getPreferences()
+            setCanPostRequests(data['canPostRequests'])
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        initializeFilters()
+    }, [])
 
     const ModalComponent = () => (
         <View>
@@ -95,21 +110,24 @@ export const PostsHistory = ({ navigation }) => {
         <View style={styles.container}>
             <View testID="Home.subContainer" style={styles.subContainer}>
                 <View style={Platform.OS === 'web' ? styles.webContainer : { flexDirection: 'row' }}>
-                    <View testID="Home.requestsContainer" style={[
-                        {
-                            borderBottomColor: showRequests ?
-                                'rgba(48, 103, 117, 100)' : 'rgba(48, 103, 117, 0)'
-                        },
-                        styles.pressable
-                    ]}>
-                        <Pressable
-                            style={styles.pressableText}
-                            onPress={() => setShowRequests(true)}
-                            testID="Home.requestsBtn"
-                        >
-                            <Text testID="Home.requestsLabel" style={globalStyles.H3}>My Requests</Text>
-                        </Pressable>
-                    </View>
+                    {canPostRequests ?
+                        <View testID="Home.requestsContainer" style={[
+                            {
+                                borderBottomColor: showRequests ?
+                                    'rgba(48, 103, 117, 100)' : 'rgba(48, 103, 117, 0)'
+                            },
+                            styles.pressable
+                        ]}>
+                            <Pressable
+                                style={styles.pressableText}
+                                onPress={() => setShowRequests(true)}
+                                testID="Home.requestsBtn"
+                            >
+                                <Text testID="Home.requestsLabel" style={globalStyles.H3}>My Requests</Text>
+                            </Pressable>
+                        </View>
+                        : <></>
+                    }
                     <View testID="Home.offersContainer" style={[
                         {
                             borderBottomColor: !showRequests ?
@@ -140,7 +158,7 @@ export const PostsHistory = ({ navigation }) => {
                     </Pressable>
                 </View>
             </View>
-            {showRequests &&
+            {showRequests && canPostRequests &&
                 <HistoryPostRenderer
                     navigation={navigation}
                     type={"r"}

@@ -28,6 +28,7 @@ class BasicUser(AbstractBaseUser, PermissionsMixin):
     distance = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(30)], blank=True, default=15)
     allowNewMessagesNotifications = models.BooleanField(default=True)
     allowExpiringPostsNotifications = models.BooleanField(default=True)
+    canPostRequests = models.BooleanField(default=False) 
 
     REQUIRED_FIELDS = ["email"]
 
@@ -82,3 +83,6 @@ class BasicUser(AbstractBaseUser, PermissionsMixin):
 
         self.longitude = float(longitude)
         self.latitude = float(latitude)
+
+    def get_can_post_requests(self):
+        return self.canPostRequests

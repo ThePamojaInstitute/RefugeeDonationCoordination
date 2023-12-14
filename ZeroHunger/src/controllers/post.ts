@@ -9,17 +9,14 @@ interface ILOGISTICSPREFERENCES {
     WHEELCHAIR: Char
 }
 interface IFOODCATEGORIES {
-    Fruits: Char,
-    Vegetables: Char,
-    Grains: Char,
-    Dairy: Char,
-    DairyAlternatives: Char,
-    MeatPoultry: Char,
-    Fish: Char,
-    Legumes: Char,
-    BakedGoods: Char,
-    Snacks: Char,
-    Condiments: Char,
+    Clothing: Char,
+    FoodDrink: Char,
+    Tableware: Char,
+    Electronics: Char,
+    Medicine: Char,
+    Toiletries: Char,
+    Bedding: Char,
+    UtilityBills: Char,
     Other: Char,
 }
 interface IDIETPREFERENCES {
@@ -41,18 +38,15 @@ export const LOGISTICSPREFERENCES: ILOGISTICSPREFERENCES = {
     WHEELCHAIR: 'd'
 }
 export const FOODCATEGORIES: IFOODCATEGORIES = {
-    Fruits: 'a',
-    Vegetables: 'b',
-    Grains: 'c',
-    Dairy: 'd',
-    DairyAlternatives: 'e',
-    MeatPoultry: 'f',
-    Fish: 'g',
-    Legumes: 'h',
-    BakedGoods: 'i',
-    Snacks: 'j',
-    Condiments: 'k',
-    Other: 'l',
+    Clothing: 'a',
+    FoodDrink: 'b',
+    Tableware: 'c',
+    Electronics: 'd',
+    Medicine: 'e',
+    Toiletries: 'f',
+    Bedding: 'g',
+    UtilityBills: 'h',
+    Other: 'i',
 }
 export const DIETPREFERENCES: IDIETPREFERENCES = {
     Halal: 'a',
@@ -77,7 +71,7 @@ export const createPost = async (post: {
         accessNeeds: string,
         categories: Char[],
         diet: Char[],
-        expiryDate: string,
+        expiryDate: any,
     }
     postType: Char
 }) => {
@@ -246,30 +240,22 @@ export const formatPostalCode = (postalCode: string) => {
 
 export const getCategory = (char: Char) => {
     switch (char) {
-        case FOODCATEGORIES.DairyAlternatives:
-            return 'Dairy alternatives'
-        case FOODCATEGORIES.MeatPoultry:
-            return 'Meat / Poultry'
-        case FOODCATEGORIES.BakedGoods:
-            return 'Baked goods'
-        case FOODCATEGORIES.Fruits:
-            return 'Fruits'
-        case FOODCATEGORIES.Vegetables:
-            return 'Vegetables'
-        case FOODCATEGORIES.Grains:
-            return 'Grains'
-        case FOODCATEGORIES.Dairy:
-            return 'Dairy'
-        case FOODCATEGORIES.Fish:
-            return 'Fish'
-        case FOODCATEGORIES.Legumes:
-            return 'Legumes'
-        case FOODCATEGORIES.BakedGoods:
-            return 'Baked goods'
-        case FOODCATEGORIES.Snacks:
-            return 'Snacks'
-        case FOODCATEGORIES.Condiments:
-            return 'Condiments'
+        case FOODCATEGORIES.Clothing:
+            return 'Clothing'
+        case FOODCATEGORIES.FoodDrink:
+            return 'Food & Drink'
+        case FOODCATEGORIES.Tableware:
+            return 'Tableware'
+        case FOODCATEGORIES.Electronics:
+            return 'Electronics'
+        case FOODCATEGORIES.Medicine:
+            return 'Medicine'
+        case FOODCATEGORIES.Toiletries:
+            return 'Toiletries'
+        case FOODCATEGORIES.Bedding:
+            return 'Bedding'
+        case FOODCATEGORIES.UtilityBills:
+            return 'Utility Bills'
         case FOODCATEGORIES.Other:
             return 'Other'
         default:

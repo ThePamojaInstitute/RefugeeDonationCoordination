@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { View, TouchableOpacity, Text, Dimensions, Image, Platform } from "react-native";
 import styles from "../../styles/components/bottomTabStyleSheet"
 import { Colors, globalStyles } from '../../styles/globalStyleSheet';
@@ -17,6 +17,7 @@ import OnboardingScreen from '../screens/OnboardingScreen';
 import Conversations from '../screens/Conversations';
 import Chat from './Chat';
 import NotificationsScreen from '../screens/NotificationsScreen';
+import TermsAndConditionsScreen from '../screens/TermsAndConditionsScreen';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Modal from 'react-native-modal';
@@ -36,6 +37,7 @@ import { AccSettingsFormCustomHeader } from "./headers/AccSettingsCustomHeader";
 import { FormCustomHeader } from "./headers/FormCustomHeader";
 import { MainCustomHeader } from "./headers/MainCustomHeader";
 import { GuidLinesCustomHeader } from "./headers/GuideLinesCustomHeader";
+import { getPreferences } from "../controllers/preferences";
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -253,6 +255,7 @@ const HomeStackNavigator = ({ navigation }) => {
                                 updater={() => { }}
                                 expiringPosts={[]}
                                 setExpiringPosts={() => { }}
+                                setShowSearch={() => { }}
                                 t={t}
                             />
                         )
@@ -521,6 +524,19 @@ const HomeStackNavigator = ({ navigation }) => {
                     },
                 }}
             />
+            <Stack.Screen
+                name="TermsAndConditionsScreen"
+                component={TermsAndConditionsScreen}
+                options={{
+                    headerShown: true,
+                    headerShadowVisible: false,
+                    title: "Terms and Conditions",
+                    headerTitleAlign: 'center',
+                    headerStyle: {
+                        backgroundColor: Colors.offWhite,
+                    },
+                }}
+            />
         </Stack.Navigator >
     )
 }
@@ -651,6 +667,20 @@ const BottomTab = () => {
 
     const [modalVisible, setModalVisible] = useState(false)
     const [height, setHeight] = useState(0)
+    const [canPostRequests, setCanPostRequests] = useState(false)
+
+    const initializeFilters = async () => {
+        try {
+            const data = await getPreferences()
+            setCanPostRequests(data['canPostRequests'])
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        initializeFilters()
+    }, [])
 
     const bottomTabDisabledScreens = [
         'LoginScreen',
@@ -660,6 +690,7 @@ const BottomTab = () => {
         'PermissionsScreen',
         'RequestFormScreen',
         'OfferFormScreen',
+        'TermsAndConditionsScreen'
     ]
 
     return (
@@ -756,11 +787,14 @@ const BottomTab = () => {
                                         </View>
                                         <View style={{ alignItems: "center" }}>
                                             <TouchableOpacity
-                                                style={[globalStyles.secondaryBtn, { marginTop: 10 }]}
+                                                // style={[globalStyles.secondaryBtn, { marginTop: 10 }]}
+                                                style={[globalStyles.secondaryBtn, 
+                                                    canPostRequests ? { opacity: 1.0, marginTop: 10 } : { opacity: 0.7, marginTop: 10 }]}
                                                 onPress={() => {
                                                     setModalVisible(false)
                                                     navigation.navigate("RequestFormScreen")
                                                 }}
+                                                disabled={!canPostRequests}
                                                 testID="Bottom.postNavModalReqBtn"
                                             >
                                                 <Text

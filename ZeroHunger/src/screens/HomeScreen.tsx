@@ -57,6 +57,7 @@ export const HomeScreen = ({ navigation, route }) => {
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [searchQuery, setSearchQuery] = useState('')
     const [showSearch, setShowSearch] = useState(false)
+    const [canPostRequests, setCanPostRequests] = useState(false)
 
     // on navigation change
     useFocusEffect(() => {
@@ -116,6 +117,7 @@ export const HomeScreen = ({ navigation, route }) => {
             setDistance(data['distance'])
             setDiet(data['diet'])
             setLogistics(data['logistics'])
+            setCanPostRequests(data['canPostRequests'])
         } catch (error) {
             console.log(error);
         }
@@ -232,8 +234,8 @@ export const HomeScreen = ({ navigation, route }) => {
 
     const filters = [
         'Sort',
-        `Food category${categories.length > 0 ? ` (${categories.length})` : ''}`,
-        `Dietary preference${diet.length > 0 ? ` (${diet.length})` : ''}`,
+        `Category${categories.length > 0 ? ` (${categories.length})` : ''}`,
+        // `Dietary preference${diet.length > 0 ? ` (${diet.length})` : ''}`,
         `Delivery / Pick up${logistics.length > 0 ? ` (${logistics.length})` : ''}`,
         'Location'
     ]
@@ -248,7 +250,7 @@ export const HomeScreen = ({ navigation, route }) => {
             </Pressable> */}
             {showSearch ? 
                 <Searchbar
-                    placeholder="Search"
+                    placeholder={"test"}
                     onChangeText={onChangeSearch}
                     value={searchQuery}
                     onIconPress={() => updater()} //Search button
